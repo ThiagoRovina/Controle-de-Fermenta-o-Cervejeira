@@ -1,0 +1,40 @@
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\controleFCervej.exe
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\controleFCervej.deps.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\controleFCervej.runtimeconfig.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\controleFCervej.dll
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\controleFCervej.pdb
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.GeneratedMSBuildEditorConfig.editorconfig
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.AssemblyInfoInputs.cache
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.AssemblyInfo.cs
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.csproj.CoreCompileInputs.cache
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.MvcApplicationPartsAssemblyInfo.cache
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.sourcelink.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets.build.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets.development.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets\msbuild.controleFCervej.Microsoft.AspNetCore.StaticWebAssets.props
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets\msbuild.build.controleFCervej.props
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.controleFCervej.props
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.controleFCervej.props
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\staticwebassets.pack.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\scopedcss\bundle\controleFCervej.styles.css
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.dll
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\refint\controleFCervej.dll
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.pdb
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.genruntimeconfig.cache
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\ref\controleFCervej.dll
+C:\Users\thiag\AppData\Local\Temp\controleFCervej-build-check\controleFCervej.exe
+C:\Users\thiag\AppData\Local\Temp\controleFCervej-build-check\controleFCervej.deps.json
+C:\Users\thiag\AppData\Local\Temp\controleFCervej-build-check\controleFCervej.runtimeconfig.json
+C:\Users\thiag\AppData\Local\Temp\controleFCervej-build-check\controleFCervej.dll
+C:\Users\thiag\AppData\Local\Temp\controleFCervej-build-check\controleFCervej.pdb
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\appsettings.json
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\Npgsql.dll
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controleFCervej.csproj.AssemblyReference.cache
+E:\Estudos e trabalhos\C#\controleArBrain\controleFCervej\obj\Debug\net8.0\controle.78FA1DE6.Up2Date
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\appsettings.json
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\controleFCervej.exe
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\controleFCervej.deps.json
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\controleFCervej.runtimeconfig.json
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\controleFCervej.dll
+E:\Estudos e trabalhos\C#\controleArBrain\.tmp-build\controleFCervej\controleFCervej.pdb
