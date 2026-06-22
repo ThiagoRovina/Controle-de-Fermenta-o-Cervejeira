@@ -93,35 +93,87 @@ export default function RegistroForm() {
       {loading ? <LoadingState /> : null}
 
       {!loading ? (
-        <form id="registro-form" className="form-card grid max-w-[760px] gap-4" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2">
+        <form id="registro-form" className="form-card grid w-full gap-4" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 xl:grid-cols-[minmax(260px,360px)_minmax(240px,320px)_220px]">
             <Select label="Cerveja" value={form.cervejaId} onChange={(event) => setForm({ ...form, cervejaId: event.target.value })} required>
-              <option value="">Selecione</option>
+              <option value="">Selecione a cerveja</option>
               {cervejas.map((cerveja) => (
                 <option key={cerveja.id} value={cerveja.id}>
-                  {cerveja.nome}
+                  {cerveja.nome} - {cerveja.estilo}
                 </option>
               ))}
             </Select>
             <Select label="Tanque" value={form.tanqueId} onChange={(event) => setForm({ ...form, tanqueId: event.target.value })} required>
-              <option value="">Selecione</option>
+              <option value="">Selecione o tanque</option>
               {tanques.map((tanque) => (
                 <option key={tanque.id} value={tanque.id}>
-                  {tanque.nome}
+                  {tanque.nome} - {tanque.capacidade.toLocaleString('pt-BR')} L
                 </option>
               ))}
             </Select>
+            <Input
+              label="Data e hora"
+              type="datetime-local"
+              value={form.dataHora}
+              onChange={(event) => setForm({ ...form, dataHora: event.target.value })}
+              required
+            />
           </div>
-          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-[minmax(220px,1fr)_220px]">
-            <Input label="Lote" value={form.numeroLote} onChange={(event) => setForm({ ...form, numeroLote: event.target.value })} required maxLength={50} />
-            <Input label="Data/hora" type="datetime-local" value={form.dataHora} onChange={(event) => setForm({ ...form, dataHora: event.target.value })} required />
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 xl:grid-cols-[minmax(220px,320px)_150px_120px_150px]">
+            <Input
+              label="Numero do lote"
+              value={form.numeroLote}
+              onChange={(event) => setForm({ ...form, numeroLote: event.target.value })}
+              placeholder="Ex.: IPA001"
+              autoComplete="off"
+              required
+              maxLength={50}
+            />
+            <Input
+              label="Temperatura"
+              unit="C"
+              type="number"
+              step="0.01"
+              inputMode="decimal"
+              placeholder="Ex.: 10.5"
+              value={form.temperatura || ''}
+              onChange={(event) => setForm({ ...form, temperatura: Number(event.target.value) })}
+              required
+            />
+            <Input
+              label="pH"
+              type="number"
+              min="0"
+              max="14"
+              step="0.01"
+              inputMode="decimal"
+              placeholder="Ex.: 5.2"
+              value={form.ph || ''}
+              onChange={(event) => setForm({ ...form, ph: Number(event.target.value) })}
+              required
+            />
+            <Input
+              label="Extrato"
+              unit="P"
+              type="number"
+              min="0"
+              step="0.01"
+              inputMode="decimal"
+              placeholder="Ex.: 12.5"
+              value={form.extrato || ''}
+              onChange={(event) => setForm({ ...form, extrato: Number(event.target.value) })}
+              required
+            />
           </div>
-          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3 md:max-w-[520px]">
-            <Input label="Temperatura" unit="C" type="number" step="0.01" value={form.temperatura || ''} onChange={(event) => setForm({ ...form, temperatura: Number(event.target.value) })} required />
-            <Input label="pH" type="number" min="0" max="14" step="0.01" value={form.ph || ''} onChange={(event) => setForm({ ...form, ph: Number(event.target.value) })} required />
-            <Input label="Extrato" unit="P" type="number" step="0.01" value={form.extrato || ''} onChange={(event) => setForm({ ...form, extrato: Number(event.target.value) })} required />
+          <div className="max-w-[760px]">
+            <Textarea
+              label="Observacoes"
+              value={form.observacoes ?? ''}
+              onChange={(event) => setForm({ ...form, observacoes: event.target.value })}
+              placeholder="Informacoes adicionais sobre a medicao"
+              maxLength={500}
+            />
           </div>
-          <Textarea label="Observacoes" value={form.observacoes ?? ''} onChange={(event) => setForm({ ...form, observacoes: event.target.value })} maxLength={500} />
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeee] pt-3.5">
             <Button type="submit" variant="success" disabled={saving} icon={<IconImage src={saveIcon} size={18} />}>
               {saving ? 'Salvando...' : 'Salvar registro'}
