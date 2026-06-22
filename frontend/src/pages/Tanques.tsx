@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
+import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
 import Table from '../components/ui/Table'
 import { getErrorMessage } from '../services/api'
@@ -14,8 +15,21 @@ import trashIcon from '../icones/excluir.png'
 export default function Tanques() {
   const navigate = useNavigate()
   const [tanques, setTanques] = useState<Tanque[]>([])
+  const [busca, setBusca] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  const tanquesFiltrados = useMemo(() => {
+    const termo = busca.trim().toLocaleLowerCase('pt-BR')
+
+    if (!termo) {
+      return tanques
+    }
+
+    return tanques.filter((tanque) =>
+      `${tanque.nome} ${tanque.capacidade} ${tanque.capacidade.toLocaleString('pt-BR')}`.toLocaleLowerCase('pt-BR').includes(termo)
+    )
+  }, [busca, tanques])
 
   async function loadTanques() {
     setLoading(true)
@@ -57,8 +71,18 @@ export default function Tanques() {
       {error ? <ErrorBanner message={error} /> : null}
       {loading ? <LoadingState /> : null}
 
-      <Table headers={['Nome', 'Capacidade', 'Acoes']} isEmpty={!loading && tanques.length === 0} emptyMessage="Nenhum tanque cadastrado ainda.">
-        {tanques.map((tanque) => (
+      <section className="rounded-lg border border-[#e0e0e0] bg-white p-[22px]">
+        <div className="grid max-w-[360px] gap-3">
+          <Input label="Buscar" value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Nome ou capacidade" />
+        </div>
+      </section>
+
+      <Table
+        headers={['Nome', 'Capacidade', 'Acoes']}
+        isEmpty={!loading && tanquesFiltrados.length === 0}
+        emptyMessage={busca ? 'Nenhum tanque encontrado para a busca.' : 'Nenhum tanque cadastrado ainda.'}
+      >
+        {tanquesFiltrados.map((tanque) => (
           <tr key={tanque.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
             <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{tanque.nome}</td>
             <td className="px-3.5 py-2.5 text-xs text-brand-dark">{tanque.capacidade.toLocaleString('pt-BR')} L</td>

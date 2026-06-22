@@ -10,7 +10,7 @@ Host: localhost
 Porta: 5432
 Database: postgres
 Usuario: postgres
-Senha: 1216
+Senha: 12345
 ```
 
 String usada pela API .NET:

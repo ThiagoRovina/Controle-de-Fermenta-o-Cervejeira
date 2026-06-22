@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
+import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
 import Table from '../components/ui/Table'
 import { deleteCerveja, getCervejas } from '../services/cervejas'
@@ -15,8 +16,21 @@ import trashIcon from '../icones/excluir.png'
 export default function Cervejas() {
   const navigate = useNavigate()
   const [cervejas, setCervejas] = useState<Cerveja[]>([])
+  const [busca, setBusca] = useState('')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  const cervejasFiltradas = useMemo(() => {
+    const termo = busca.trim().toLocaleLowerCase('pt-BR')
+
+    if (!termo) {
+      return cervejas
+    }
+
+    return cervejas.filter((cerveja) =>
+      `${cerveja.nome} ${cerveja.estilo}`.toLocaleLowerCase('pt-BR').includes(termo)
+    )
+  }, [busca, cervejas])
 
   async function loadCervejas() {
     setLoading(true)
@@ -58,8 +72,18 @@ export default function Cervejas() {
       {error ? <ErrorBanner message={error} /> : null}
       {loading ? <LoadingState /> : null}
 
-      <Table headers={['Nome', 'Estilo', 'Acoes']} isEmpty={!loading && cervejas.length === 0} emptyMessage="Nenhuma cerveja cadastrada ainda.">
-        {cervejas.map((cerveja) => (
+      <section className="rounded-lg border border-[#e0e0e0] bg-white p-[22px]">
+        <div className="grid max-w-[360px] gap-3">
+          <Input label="Buscar" value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Nome ou estilo" />
+        </div>
+      </section>
+
+      <Table
+        headers={['Nome', 'Estilo', 'Acoes']}
+        isEmpty={!loading && cervejasFiltradas.length === 0}
+        emptyMessage={busca ? 'Nenhuma cerveja encontrada para a busca.' : 'Nenhuma cerveja cadastrada ainda.'}
+      >
+        {cervejasFiltradas.map((cerveja) => (
           <tr key={cerveja.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
             <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{cerveja.nome}</td>
             <td className="px-3.5 py-2.5 text-xs text-brand-dark">{cerveja.estilo}</td>

@@ -71,13 +71,13 @@ Conexao local usada pelo backend:
 ```text
 jdbc:postgresql://localhost:5432/postgres
 usuario: postgres
-senha: 1216
+senha: 12345
 ```
 
 String equivalente no .NET, configurada em `controleFCervej/appsettings.json`:
 
 ```text
-Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=1216
+Host=localhost;Port=5432;Database=postgres;Username=postgres;Password=12345
 ```
 
 A API executa a criacao das tabelas automaticamente ao iniciar, se elas ainda
@@ -343,8 +343,60 @@ Ultimas verificacoes realizadas nesta atualizacao:
 - Build do frontend com `npm run build`.
 - Lint do frontend com `npm run lint`.
 
-## Proximos passos
+ 
+## 1. Como você modelou a solução?
+ 
+Mapeei as entidades principais do domínio (cerveja, tanque, parâmetros, registro, lote)
+e suas relações antes de escrever qualquer código. A partir disso, estruturei a API em
+módulos independentes por domínio, com o fluxo:
+ 
+**cadastrar cerveja → definir parâmetros aceitáveis → cadastrar tanque → registrar medição → classificar automaticamente**
+ 
+A regra de classificação foi isolada em um serviço dedicado e o status é calculado e
+persistido no momento do registro, garantindo rastreabilidade histórica mesmo que os
+parâmetros da cerveja sejam alterados depois.
+ 
+---
+ 
+## 2. Premissas adotadas
+ 
+- **Arquitetura modular por camadas** (controller → service → repository → model)
+  inspirada no padrão que utilizo em Java, adaptada para C# com ASP.NET Core Web API —
+  escolha não especificada no desafio, feita por familiaridade e organização do código.
+- **ASP.NET Core Web API** como framework: o desafio especifica C#/.NET sem detalhar
+  a abordagem. ASP.NET Core é o padrão de mercado para APIs REST em .NET 8.
+- **Tolerâncias da zona de Atenção** definidas por mim (±2°C, ±0,3 pH, ±1,5°P),
+  pois o desafio deixou os critérios de classificação em aberto.
+- **Lote como campo string**, não entidade separada — simplifica o modelo sem perder
+  a capacidade de consultar o histórico cronológico por lote.
+- **Armazenamento em memória** na fase inicial para não bloquear o desenvolvimento
+  da lógica de negócio aguardando configuração de banco de dados.
+---
+ 
+## 3. O que faria diferente com mais tempo
+ 
+- Autenticação de usuários com controle de acesso por perfil (operador vs. gestor).
+- Importação de cervejas com parâmetros via planilha, reduzindo erros manuais de cadastro.
+- Geração e impressão de relatórios por lote e por período.
+- Testes automatizados, especialmente na lógica de classificação.
+- Notificações em tempo real quando um registro fosse classificado como Fora do Padrão.
+- Persistência em banco de dados relacional substituindo o armazenamento em memória.
+---
+ 
+## 4. Uso de ferramentas de IA
+ 
+**Ferramentas utilizadas:** Claude (Sonnet 4.6) e Codex.
+ 
+**Em quais partes a IA ajudou:**
+- Entendimento dos fluxos do sistema e modelagem do problema.
+- Estruturação dos módulos e definição dos endpoints REST.
+- Documentação da regra de classificação.
+- Geração de componentes do frontend.
 
-- [ ] Swagger/OpenAPI para documentacao interativa.
-- [ ] CORS configuravel para cenarios fora do proxy do Vite.
-- [ ] Testes automatizados de API.
+**O que precisei corrigir:**
+- A IA gerou inconsistências visuais no frontend que exigiram ajustes manuais
+  em alguns componentes.
+- As decisões de arquitetura, tolerâncias de classificação e escolha da stack
+  foram tomadas por mim — a IA serviu como apoio para pensar no problema,
+  não como substituto do raciocínio.
+

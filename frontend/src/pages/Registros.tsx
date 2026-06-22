@@ -4,6 +4,7 @@ import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
+import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
 import Select from '../components/ui/Select'
 import Table from '../components/ui/Table'
@@ -91,7 +92,7 @@ export default function Registros() {
 
       <section className="rounded-lg border border-[#e0e0e0] bg-white p-[22px]">
         <h2 className="mb-4 text-sm font-semibold text-brand-dark">Filtros</h2>
-        <div className="grid grid-cols-1 items-end gap-3.5 lg:grid-cols-[1fr_1fr_180px_auto]">
+        <div className="grid grid-cols-1 items-end gap-3.5 lg:grid-cols-[1fr_1fr_180px_180px_auto]">
           <Select label="Cerveja" value={filtros.cervejaId ?? ''} onChange={(event) => setFiltros({ ...filtros, cervejaId: event.target.value || undefined })}>
             <option value="">Todas</option>
             {cervejas.map((cerveja) => (
@@ -108,6 +109,12 @@ export default function Registros() {
               </option>
             ))}
           </Select>
+          <Input
+            label="Lote"
+            value={filtros.numeroLote ?? ''}
+            onChange={(event) => setFiltros({ ...filtros, numeroLote: event.target.value || undefined })}
+            maxLength={50}
+          />
           <Select label="Status" value={filtros.status ?? ''} onChange={(event) => setFiltros({ ...filtros, status: event.target.value as StatusFermentacao | '' })}>
             <option value="">Todos</option>
             <option value="dentro_padrao">Dentro</option>

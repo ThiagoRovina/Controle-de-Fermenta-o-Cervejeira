@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("controleFCervej")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1893ee3864a08c307344c279cf412ab195df5c95")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48b553fca99036dd980b136ce1b0983e5a102648")]
 [assembly: System.Reflection.AssemblyProductAttribute("controleFCervej")]
 [assembly: System.Reflection.AssemblyTitleAttribute("controleFCervej")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
