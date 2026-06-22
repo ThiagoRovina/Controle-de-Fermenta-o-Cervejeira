@@ -343,6 +343,7 @@ Ultimas verificacoes realizadas nesta atualizacao:
 - Build do frontend com `npm run build`.
 - Lint do frontend com `npm run lint`.
 
+#
  
 ## 1. Como você modelou a solução?
  
