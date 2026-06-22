@@ -83,18 +83,30 @@ export default function TanqueForm() {
       {loading ? <LoadingState /> : null}
 
       {!loading ? (
-        <form id="tanque-form" className="form-card grid gap-3.5" onSubmit={handleSubmit}>
-          <Input label="Nome" value={form.nome} onChange={(event) => setForm({ ...form, nome: event.target.value })} required maxLength={100} />
-          <Input
-            label="Capacidade"
-            unit="L"
-            type="number"
-            min="1"
-            step="1"
-            value={form.capacidade || ''}
-            onChange={(event) => setForm({ ...form, capacidade: Number(event.target.value) })}
-            required
-          />
+        <form id="tanque-form" className="form-card grid w-full gap-4" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-[minmax(260px,420px)_160px]">
+            <Input
+              label="Nome do tanque"
+              value={form.nome}
+              onChange={(event) => setForm({ ...form, nome: event.target.value })}
+              placeholder="Ex.: Tanque 01"
+              autoComplete="off"
+              required
+              maxLength={100}
+            />
+            <Input
+              label="Capacidade"
+              unit="L"
+              type="number"
+              min="1"
+              step="1"
+              inputMode="numeric"
+              placeholder="Ex.: 500"
+              value={form.capacidade || ''}
+              onChange={(event) => setForm({ ...form, capacidade: Number(event.target.value) })}
+              required
+            />
+          </div>
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeee] pt-3.5">
             <div className="flex gap-2">
               <Button type="submit" variant="success" disabled={saving} icon={<IconImage src={saveIcon} size={18} />}>

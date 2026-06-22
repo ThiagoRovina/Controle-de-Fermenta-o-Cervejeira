@@ -83,9 +83,27 @@ export default function CervejaForm() {
       {loading ? <LoadingState /> : null}
 
       {!loading ? (
-        <form id="cerveja-form" className="form-card grid gap-3.5" onSubmit={handleSubmit}>
-          <Input label="Nome" value={form.nome} onChange={(event) => setForm({ ...form, nome: event.target.value })} required maxLength={100} />
-          <Input label="Estilo" value={form.estilo} onChange={(event) => setForm({ ...form, estilo: event.target.value })} required maxLength={100} />
+        <form id="cerveja-form" className="form-card grid w-full gap-4" onSubmit={handleSubmit}>
+          <div className="grid grid-cols-1 gap-3.5 md:grid-cols-[minmax(260px,420px)_minmax(220px,320px)]">
+            <Input
+              label="Nome da cerveja"
+              value={form.nome}
+              onChange={(event) => setForm({ ...form, nome: event.target.value })}
+              placeholder="Ex.: IPA ArBrain"
+              autoComplete="off"
+              required
+              maxLength={100}
+            />
+            <Input
+              label="Estilo"
+              value={form.estilo}
+              onChange={(event) => setForm({ ...form, estilo: event.target.value })}
+              placeholder="Ex.: IPA"
+              autoComplete="off"
+              required
+              maxLength={100}
+            />
+          </div>
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#eeeeee] pt-3.5">
             <div className="flex gap-2">
               <Button type="submit" variant="success" disabled={saving} icon={<IconImage src={saveIcon} size={18} />}>
