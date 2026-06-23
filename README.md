@@ -381,9 +381,6 @@ O desafio deixou alguns pontos em aberto, e precisei tomar decisões por conta p
   O histórico cronológico é obtido filtrando os registros pelo número do lote,
   o que simplifica o modelo sem perder nenhuma funcionalidade exigida.
 
-- **Armazenamento em memória**: decisão pragmática para não travar o desenvolvimento
-  da lógica de negócio enquanto o banco de dados não estava configurado.
-
 ---
 
 ## 3. O que faria diferente com mais tempo
