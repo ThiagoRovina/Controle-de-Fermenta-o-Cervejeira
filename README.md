@@ -343,3 +343,75 @@ Ultimas verificacoes realizadas nesta atualizacao:
 - Build do frontend com `npm run build`.
 - Lint do frontend com `npm run lint`.
 
+## 1. Como você modelou a solução?
+
+Antes de escrever qualquer código, dediquei um tempo para entender o domínio
+do problema. Identifiquei as entidades principais   cerveja, tanque, parâmetros,
+registro e lote e como elas se relacionam entre si.
+
+### Fluxo:
+**cadastrar cerveja >> definir parâmetros aceitáveis >> cadastrar tanque >> registrar medição >> classificar automaticamente**
+
+Optei por isolar a regra de classificação em um serviço dedicado e por calcular
+e persistir o status no momento do registro. Essa decisão foi intencional: mesmo
+que os parâmetros de uma cerveja sejam alterados no futuro, o histórico continua
+refletindo o que estava definido no momento da medição, o que facilita rastrear possíveis erros.
+
+---
+
+## 2. Premissas adotadas
+
+O desafio deixou alguns pontos em aberto, e precisei tomar decisões por conta própria:
+
+- **Arquitetura modular por camadas** (controller, service, repository, model):
+  trouxe esse padrão do meu dia a dia com Java e adaptei para C#.
+  Funciona bem aqui pelo mesmo motivo: separa responsabilidades e facilita a
+  localização do código conforme o projeto cresce.
+
+- **ASP.NET Core Web API**: o desafio pede backend em C#/.NET sem especificar
+  o framework. Escolhi ASP.NET Core por ser o padrão de mercado para APIs REST
+  em .NET 8.
+
+- **Critérios de classificação**: o desafio pede a classificação em três categorias
+  mas deixa os critérios em aberto. Defini tolerâncias para a zona de Atenção
+  (+/- 2°C, +/- 0,3 pH, +/- 1,5°P) com base no que faria sentido operacionalmente,
+  e documentei a justificativa de cada uma.
+
+- **Lote como campo string**: optei por não criar uma entidade separada para lote.
+  O histórico cronológico é obtido filtrando os registros pelo número do lote,
+  o que simplifica o modelo sem perder nenhuma funcionalidade exigida.
+
+- **Armazenamento em memória**: decisão pragmática para não travar o desenvolvimento
+  da lógica de negócio enquanto o banco de dados não estava configurado.
+
+---
+
+## 3. O que faria diferente com mais tempo
+
+Algumas coisas ficaram no radar mas não entraram no escopo deste desafio:
+
+- Autenticação com controle de acesso por perfil, onde operador e gestor teriam
+  permissões diferentes.
+- Importação de cervejas e parâmetros via planilha, para agilizar o cadastro
+  inicial e reduzir erros manuais.
+- Geração de relatórios por lote e por período, algo que uma cervejaria usaria
+  no dia a dia.
+- Testes automatizados, especialmente cobrindo a lógica de classificação,
+  que é o coração do sistema.
+- Notificações quando um registro for classificado como Fora do Padrão.
+- Persistência real em banco de dados relacional.
+
+---
+
+## 4. Uso de ferramentas de IA
+
+Utilizei o **Claude (Sonnet 4.6)** para pensar no problema, entender os fluxos,
+discutir a modelagem e revisar decisões de arquitetura. O **Codex** me ajudou
+na implementação de partes do código.
+
+A IA foi útil principalmente para estruturar os módulos, definir os endpoints,
+documentar a regra de classificação e gerar componentes do frontend.
+
+O que precisei corrigir: o frontend gerado pela IA apresentou algumas
+inconsistências visuais que resolvi manualmente. Algumas decisões de arquitetura foram escolhidas por mim, a IA
+funcionou como um apoio para entender e resolver determindados problemas.
