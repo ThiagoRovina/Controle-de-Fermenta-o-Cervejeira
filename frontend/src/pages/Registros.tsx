@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Badge from '../components/ui/Badge'
-import Button from '../components/ui/Button'
+import Button, { DeleteIconButton } from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
 import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
 import Select from '../components/ui/Select'
-import Table from '../components/ui/Table'
+import Table, { TableActions, TableCell, TableRow } from '../components/ui/Table'
 import { getErrorMessage } from '../services/api'
 import { getCervejas } from '../services/cervejas'
 import { deleteRegistro, getRegistros } from '../services/registros'
@@ -34,25 +34,23 @@ export default function Registros() {
   const [error, setError] = useState('')
   const [lastStatus] = useState<StatusFermentacao | null>(locationState?.lastStatus ?? null)
 
-  async function loadBaseData() {
-    setLoading(true)
-    try {
-      setError('')
-      const [cervejasData, tanquesData, registrosData] = await Promise.all([getCervejas(), getTanques(), getRegistros(filtros)])
-      setCervejas(cervejasData)
-      setTanques(tanquesData)
-      setRegistros(registrosData)
-    } catch (err) {
-      setError(getErrorMessage(err))
-    } finally {
-      setLoading(false)
-    }
-  }
-
   useEffect(() => {
+    async function loadBaseData() {
+      setLoading(true)
+      try {
+        setError('')
+        const [cervejasData, tanquesData, registrosData] = await Promise.all([getCervejas(), getTanques(), getRegistros()])
+        setCervejas(cervejasData)
+        setTanques(tanquesData)
+        setRegistros(registrosData)
+      } catch (err) {
+        setError(getErrorMessage(err))
+      } finally {
+        setLoading(false)
+      }
+    }
+
     void loadBaseData()
-    // A carga inicial deve ocorrer uma unica vez; filtros sao aplicados pelo botao "Filtrar".
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   async function applyFilters() {
@@ -136,19 +134,19 @@ export default function Registros() {
         emptyMessage="Nenhum registro fermentativo encontrado."
       >
         {registros.map((registro) => (
-          <tr key={registro.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
-            <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{registro.numeroLote}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{getCervejaNome(cervejas, registro.cervejaId)}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{getTanqueNome(tanques, registro.tanqueId)}</td>
-            <td className="whitespace-nowrap px-3.5 py-2.5 text-xs text-brand-dark">{formatDateTime(registro.dataHora)}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{registro.temperatura} C</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{registro.ph}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{registro.extrato} P</td>
-            <td className="px-3.5 py-2.5">
+          <TableRow key={registro.id}>
+            <TableCell strong>{registro.numeroLote}</TableCell>
+            <TableCell>{getCervejaNome(cervejas, registro.cervejaId)}</TableCell>
+            <TableCell>{getTanqueNome(tanques, registro.tanqueId)}</TableCell>
+            <TableCell className="whitespace-nowrap">{formatDateTime(registro.dataHora)}</TableCell>
+            <TableCell>{registro.temperatura} C</TableCell>
+            <TableCell>{registro.ph}</TableCell>
+            <TableCell>{registro.extrato} P</TableCell>
+            <TableCell>
               <Badge status={registro.status} />
-            </td>
-            <td className="px-3.5 py-2.5">
-              <div className="flex flex-wrap gap-2">
+            </TableCell>
+            <TableCell>
+              <TableActions>
                 <Button
                   type="button"
                   variant="secondary"
@@ -158,18 +156,10 @@ export default function Registros() {
                 >
                   Editar
                 </Button>
-                <button
-                  type="button"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#FA9897] bg-[#FA9897] transition hover:border-[#FA9897] hover:bg-[#FA9897] focus:outline-none focus:ring-2 focus:ring-[#FA9897]/40"
-                  aria-label="Excluir registro"
-                  title="Excluir"
-                  onClick={() => void removeRegistro(registro.id)}
-                >
-                  <IconImage src={trashIcon} size={26} />
-                </button>
-              </div>
-            </td>
-          </tr>
+                <DeleteIconButton label="Excluir registro" icon={<IconImage src={trashIcon} size={26} />} onClick={() => void removeRegistro(registro.id)} />
+              </TableActions>
+            </TableCell>
+          </TableRow>
         ))}
       </Table>
     </div>

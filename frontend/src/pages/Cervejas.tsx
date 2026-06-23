@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
+import Button, { DeleteIconButton } from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
 import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
-import Table from '../components/ui/Table'
+import Table, { TableActions, TableCell, TableRow } from '../components/ui/Table'
 import { deleteCerveja, getCervejas } from '../services/cervejas'
 import { getErrorMessage } from '../services/api'
 import type { Cerveja } from '../types'
@@ -84,11 +84,11 @@ export default function Cervejas() {
         emptyMessage={busca ? 'Nenhuma cerveja encontrada para a busca.' : 'Nenhuma cerveja cadastrada ainda.'}
       >
         {cervejasFiltradas.map((cerveja) => (
-          <tr key={cerveja.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
-            <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{cerveja.nome}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{cerveja.estilo}</td>
-            <td className="px-3.5 py-2.5">
-              <div className="flex flex-wrap gap-2">
+          <TableRow key={cerveja.id}>
+            <TableCell strong>{cerveja.nome}</TableCell>
+            <TableCell>{cerveja.estilo}</TableCell>
+            <TableCell>
+              <TableActions>
                 <Button
                   type="button"
                   variant="secondary"
@@ -101,18 +101,10 @@ export default function Cervejas() {
                 <Button type="button" variant="ghost" size="sm" icon={<IconImage src={settingsIcon} size={16} />} onClick={() => navigate(`/parametros?cervejaId=${cerveja.id}`)}>
                   Parametros
                 </Button>
-                <button
-                  type="button"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#FA9897] bg-[#FA9897] transition hover:border-[#FA9897] hover:bg-[#FA9897] focus:outline-none focus:ring-2 focus:ring-[#FA9897]/40"
-                  aria-label="Excluir cerveja"
-                  title="Excluir"
-                  onClick={() => void removeCerveja(cerveja.id)}
-                >
-                  <IconImage src={trashIcon} size={26} />
-                </button>
-              </div>
-            </td>
-          </tr>
+                <DeleteIconButton label="Excluir cerveja" icon={<IconImage src={trashIcon} size={26} />} onClick={() => void removeCerveja(cerveja.id)} />
+              </TableActions>
+            </TableCell>
+          </TableRow>
         ))}
       </Table>
     </div>

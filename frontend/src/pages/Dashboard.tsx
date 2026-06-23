@@ -3,7 +3,7 @@ import Badge from '../components/ui/Badge'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
 import SectionHeader from '../components/ui/SectionHeader'
-import Table from '../components/ui/Table'
+import Table, { TableCell, TableRow } from '../components/ui/Table'
 import { getDashboard } from '../services/dashboard'
 import { getErrorMessage } from '../services/api'
 import { getCervejas } from '../services/cervejas'
@@ -88,17 +88,17 @@ export default function Dashboard() {
           emptyMessage="Nenhum registro recente encontrado."
         >
           {registros.map((registro) => (
-            <tr key={registro.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
-              <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{registro.numeroLote}</td>
-              <td className="px-3.5 py-2.5 text-xs text-brand-dark">{getCervejaNome(cervejas, registro.cervejaId)}</td>
-              <td className="px-3.5 py-2.5 text-xs text-brand-dark">{getTanqueNome(tanques, registro.tanqueId)}</td>
-              <td className="whitespace-nowrap px-3.5 py-2.5 text-xs text-brand-dark">{formatDateTime(registro.dataHora)}</td>
-              <td className="px-3.5 py-2.5 text-xs text-brand-dark">{registro.temperatura} C</td>
-              <td className="px-3.5 py-2.5 text-xs text-brand-dark">{registro.ph}</td>
-              <td className="px-3.5 py-2.5">
+            <TableRow key={registro.id}>
+              <TableCell strong>{registro.numeroLote}</TableCell>
+              <TableCell>{getCervejaNome(cervejas, registro.cervejaId)}</TableCell>
+              <TableCell>{getTanqueNome(tanques, registro.tanqueId)}</TableCell>
+              <TableCell className="whitespace-nowrap">{formatDateTime(registro.dataHora)}</TableCell>
+              <TableCell>{registro.temperatura} C</TableCell>
+              <TableCell>{registro.ph}</TableCell>
+              <TableCell>
                 <Badge status={registro.status} />
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
         </Table>
       </section>

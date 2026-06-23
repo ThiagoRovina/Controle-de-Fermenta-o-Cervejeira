@@ -30,3 +30,22 @@ export default function Button({ children, icon, variant = 'primary', size = 'no
     </button>
   )
 }
+
+interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  icon: ReactNode
+  label: string
+}
+
+export function DeleteIconButton({ icon, label, className = '', ...props }: IconButtonProps) {
+  return (
+    <button
+      type="button"
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#FA9897] bg-[#FA9897] transition hover:border-[#FA9897] hover:bg-[#FA9897] focus:outline-none focus:ring-2 focus:ring-[#FA9897]/40 ${className}`}
+      aria-label={label}
+      title="Excluir"
+      {...props}
+    >
+      {icon}
+    </button>
+  )
+}

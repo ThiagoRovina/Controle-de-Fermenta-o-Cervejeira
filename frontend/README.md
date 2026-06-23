@@ -10,7 +10,6 @@ Frontend React + TypeScript do FermentaTrack.
 - Tailwind CSS
 - React Router
 - Axios
-- Tabler Icons
 
 ## Scripts
 

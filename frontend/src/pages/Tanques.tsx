@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import Button from '../components/ui/Button'
+import Button, { DeleteIconButton } from '../components/ui/Button'
 import { ErrorBanner, LoadingState } from '../components/ui/Feedback'
 import IconImage from '../components/ui/IconImage'
 import Input from '../components/ui/Input'
 import SectionHeader from '../components/ui/SectionHeader'
-import Table from '../components/ui/Table'
+import Table, { TableActions, TableCell, TableRow } from '../components/ui/Table'
 import { getErrorMessage } from '../services/api'
 import { deleteTanque, getTanques } from '../services/tanques'
 import type { Tanque } from '../types'
@@ -83,11 +83,11 @@ export default function Tanques() {
         emptyMessage={busca ? 'Nenhum tanque encontrado para a busca.' : 'Nenhum tanque cadastrado ainda.'}
       >
         {tanquesFiltrados.map((tanque) => (
-          <tr key={tanque.id} className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">
-            <td className="px-3.5 py-2.5 text-xs font-semibold text-brand-dark">{tanque.nome}</td>
-            <td className="px-3.5 py-2.5 text-xs text-brand-dark">{tanque.capacidade.toLocaleString('pt-BR')} L</td>
-            <td className="px-3.5 py-2.5">
-              <div className="flex flex-wrap gap-2">
+          <TableRow key={tanque.id}>
+            <TableCell strong>{tanque.nome}</TableCell>
+            <TableCell>{tanque.capacidade.toLocaleString('pt-BR')} L</TableCell>
+            <TableCell>
+              <TableActions>
                 <Button
                   type="button"
                   variant="secondary"
@@ -97,18 +97,10 @@ export default function Tanques() {
                 >
                   Editar
                 </Button>
-                <button
-                  type="button"
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-[5px] border border-[#FA9897] bg-[#FA9897] transition hover:border-[#FA9897] hover:bg-[#FA9897] focus:outline-none focus:ring-2 focus:ring-[#FA9897]/40"
-                  aria-label="Excluir tanque"
-                  title="Excluir"
-                  onClick={() => void removeTanque(tanque.id)}
-                >
-                  <IconImage src={trashIcon} size={26} />
-                </button>
-              </div>
-            </td>
-          </tr>
+                <DeleteIconButton label="Excluir tanque" icon={<IconImage src={trashIcon} size={26} />} onClick={() => void removeTanque(tanque.id)} />
+              </TableActions>
+            </TableCell>
+          </TableRow>
         ))}
       </Table>
     </div>

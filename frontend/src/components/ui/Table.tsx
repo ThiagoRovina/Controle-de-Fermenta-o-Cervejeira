@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import type { TdHTMLAttributes, ReactNode } from 'react'
 
 interface TableProps {
   headers: string[]
@@ -36,4 +36,31 @@ export default function Table({ headers, children, emptyMessage = 'Nenhum regist
       </div>
     </div>
   )
+}
+
+interface TableRowProps {
+  children: ReactNode
+}
+
+export function TableRow({ children }: TableRowProps) {
+  return <tr className="border-b border-[#f5f5f5] hover:bg-[#fafafa]">{children}</tr>
+}
+
+interface TableCellProps extends TdHTMLAttributes<HTMLTableCellElement> {
+  children: ReactNode
+  strong?: boolean
+}
+
+export function TableCell({ children, strong = false, className = '', ...props }: TableCellProps) {
+  const weight = strong ? 'font-semibold' : ''
+
+  return (
+    <td className={`px-3.5 py-2.5 text-xs text-brand-dark ${weight} ${className}`} {...props}>
+      {children}
+    </td>
+  )
+}
+
+export function TableActions({ children }: { children: ReactNode }) {
+  return <div className="flex flex-wrap gap-2">{children}</div>
 }

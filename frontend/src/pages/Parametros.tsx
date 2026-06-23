@@ -130,9 +130,7 @@ export default function Parametros() {
 
   return (
     <div className="space-y-4">
-      <SectionHeader
-        title="Parametros"
-      />
+      <SectionHeader title="Parametros" />
 
       {error ? <ErrorBanner message={error} /> : null}
       {loading ? <LoadingState /> : null}
@@ -153,7 +151,7 @@ export default function Parametros() {
           <div className="mt-4 flex items-start gap-2 rounded-md border border-[#e0e0e0] bg-brand-light px-3 py-2 text-xs text-brand-gray">
             <IconImage className="mt-0.5" src={infoIcon} size={16} />
             <span>
-              {selectedCerveja ? `${selectedCerveja.nome} · ${selectedCerveja.estilo}` : 'Selecione uma cerveja para configurar as faixas de tolerancia.'}
+              {selectedCerveja ? `${selectedCerveja.nome} - ${selectedCerveja.estilo}` : 'Selecione uma cerveja para configurar as faixas de tolerancia.'}
             </span>
           </div>
         </div>
@@ -187,3 +185,4 @@ export default function Parametros() {
     </div>
   )
 }
+
